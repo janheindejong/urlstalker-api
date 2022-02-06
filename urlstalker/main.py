@@ -5,6 +5,7 @@ app = FastAPI()
 
 urls = []
 
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -14,6 +15,7 @@ def read_root():
 def get_url() -> list[str]:
     return urls
 
+
 @app.post("/url/")
-def post_url(url: str) -> int: 
+def post_url(url: str) -> int:
     urls.append(url)
