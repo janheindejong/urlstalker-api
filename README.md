@@ -1,12 +1,8 @@
 # URL Stalker
 
-Pet project to stalk HTTP endpoints - taking snapshots at regular intervals. 
+Pet project to stalk HTTP endpoints - taking snapshots at regular intervals. The idea is that you can add a URL, and that the app will check and store the content of the URL on a daily basis. Additional features could storing only a part of it using RegEx; getting e-mails whenever something changes; doing some data analysis on the data. 
 
-## User stories 
-
-In order of implementation importance:
-
-1. As a Jan Hein, I want to be able to add a URL for tracking with that gets
+Don't know if it's really useful, but kinda fun. 
 
 ## Architecture 
 
