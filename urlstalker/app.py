@@ -5,9 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from . import crud, schemas
-from .database import Base, SessionLocal, engine
+from .database import SessionLocal
 
-Base.metadata.create_all(bind=engine)
 
 # FastAPI app
 app = FastAPI()
