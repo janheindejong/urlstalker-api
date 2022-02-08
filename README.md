@@ -10,6 +10,10 @@ We'll use the following techniques:
 
 - FastAPI and OpenAPI for creating the API for the user to register and manage the URLs
 - SQLlite database for storing URLs, stored 
-- SQLAlchemy for ORM / manual
-- Separate application for executing the requests / separate thread?
+- SQLAlchemy for ORM
+- Separate application for executing the requests
 
+
+# Notes 
+
+For typehinting with SQLAlchemy to work properly, you need to add the stubs like so: `poetry add sqlalchemy[mypy]`

@@ -4,8 +4,8 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from . import crud, models, schemas
-from .database import SessionLocal, engine, Base
+from . import crud, schemas
+from .database import Base, SessionLocal, engine
 
 Base.metadata.create_all(bind=engine)
 
@@ -27,3 +27,23 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@app.get("/resource", response_model=list[schemas.Resource])
+def get_resource(db: Session = Depends(get_db)) -> list[schemas.Resource]:
+    resources = crud.get_resources(db)
+    return resources
+
+
+@app.post("/resource", response_model=schemas.Resource)
+def get_resource(
+    resource: schemas.ResourceBase, db: Session = Depends(get_db)
+) -> schemas.Resource:
+    return crud.create_new_resource(db, resource)
+
+
+@app.post("/resource/{id}/snapshot", response_model=schemas.SnapShot)
+def get_resource(
+    id: int, snapshot: schemas.SnapShotBase, db: Session = Depends(get_db)
+) -> schemas.SnapShot:
+    return crud.add_snap_shot(db, id, snapshot)
