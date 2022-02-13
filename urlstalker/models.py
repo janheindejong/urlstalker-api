@@ -1,5 +1,7 @@
 """SQLAlchemy models"""
 
+from __future__ import annotations
+
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import declarative_base, relationship
 
@@ -11,7 +13,7 @@ class Resource(Base):
 
     id = Column(Integer, primary_key=True)
     path = Column(String)
-    snapshots = relationship("SnapShot", cascade="all, delete-orphan")
+    snapshots: list[SnapShot] = relationship("SnapShot", cascade="all, delete-orphan")
 
 
 class SnapShot(Base):

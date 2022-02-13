@@ -11,7 +11,6 @@ requests = "^2.27.1"
 uvicorn = "^0.17.4"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.31"}
 alembic = "^1.7.6"
-SQLAlchemy-Utils = "^0.38.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
@@ -23,3 +22,4 @@ autoflake = "^1.4"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
