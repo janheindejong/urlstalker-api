@@ -1,8 +1,10 @@
 """FastAPI app"""
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+
+from urlstalker import models
 
 from . import crud, schemas
 from .database import SessionLocal
@@ -28,20 +30,23 @@ def get_db():
 
 
 @app.get("/resource", response_model=list[schemas.Resource])
-def get_resource(db: Session = Depends(get_db)) -> list[schemas.Resource]:
+def get_resource(db: Session = Depends(get_db)) -> list[models.Resource]:
     resources = crud.get_resources(db)
     return resources
 
 
 @app.post("/resource", response_model=schemas.Resource)
-def get_resource(
+def post_resource(
     resource: schemas.ResourceBase, db: Session = Depends(get_db)
-) -> schemas.Resource:
+) -> models.Resource:
     return crud.create_new_resource(db, resource)
 
 
 @app.post("/resource/{id}/snapshot", response_model=schemas.SnapShot)
-def get_resource(
+def post_snapshot(
     id: int, snapshot: schemas.SnapShotBase, db: Session = Depends(get_db)
-) -> schemas.SnapShot:
-    return crud.add_snap_shot(db, id, snapshot)
+) -> models.SnapShot:
+    try:
+        return crud.add_snap_shot(db, id, snapshot)
+    except crud.ResourceNotFound: 
+        raise HTTPException(422, f"Resource {id} not found")

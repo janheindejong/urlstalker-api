@@ -1,7 +1,8 @@
 from typing import Any
+import fastapi
 
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
+import pytest
 
 
 def test_get_resource(client: TestClient, mock_data: Any):
@@ -26,3 +27,14 @@ def test_post_snapshot(client: TestClient, mock_data: Any):
     }
     response = client.post("/resource/1/snapshot", json=snapshot)
     assert response.json() == {**snapshot, **{"id": 2}}
+
+
+def test_post_snapshot_resource_not_found(client: TestClient): 
+    snapshot = {
+        "datetime": "1987-10-22T01:23:45",
+        "status_code": 200,
+        "response": "This is me!",
+    }
+    response = client.post("/resource/1/snapshot", json=snapshot)
+    assert response.status_code == 422
+    assert response.json()["detail"] == "Resource 1 not found"
