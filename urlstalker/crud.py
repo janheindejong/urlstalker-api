@@ -1,4 +1,5 @@
 from typing import Optional
+
 from sqlalchemy.orm import Session, selectinload
 
 from . import models, schemas
@@ -26,7 +27,7 @@ def add_snap_shot(
     db: Session, id: int, obj_in: schemas.SnapShotBase
 ) -> models.SnapShot:
     resource: Optional[models.Resource] = db.query(models.Resource).get(id)
-    if not resource: 
+    if not resource:
         raise ResourceNotFound
     snapshot = models.SnapShot(resource_id=id, **obj_in.dict())
     resource.snapshots.append(snapshot)

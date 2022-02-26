@@ -48,5 +48,5 @@ def post_snapshot(
 ) -> models.SnapShot:
     try:
         return crud.add_snap_shot(db, id, snapshot)
-    except crud.ResourceNotFound: 
+    except crud.ResourceNotFound:
         raise HTTPException(422, f"Resource {id} not found")
