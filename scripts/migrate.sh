@@ -1,3 +1,5 @@
 #!/bin/bash
 
-alembic upgrade head
+export PREFIX=".venv/bin/"
+
+${PREFIX}alembic upgrade head

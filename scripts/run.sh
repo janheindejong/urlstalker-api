@@ -1,3 +1,5 @@
 #!/bin/bash
 
-.venv/bin/uvicorn urlstalker.app:app --port 8000 --host localhost
+export PREFIX=".venv/bin/"
+
+${PREFIX}uvicorn urlstalker.app:app --port 8000 --host localhost
