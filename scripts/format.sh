@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -ex
 
 export PREFIX=".venv/bin/"
